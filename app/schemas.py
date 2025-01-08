@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
 class UsuarioBase(BaseModel):
     username: str
@@ -13,7 +13,7 @@ class UsuarioResponse(UsuarioBase):
 
     class Config:
         orm_mode = True
-        
+
 class TarefaBase(BaseModel):
     titulo: str
     descricao: Optional[str] = None
@@ -31,6 +31,13 @@ class Tarefa(TarefaBase):
     id: int
     data_criacao: datetime
     data_atualizacao: datetime
+
+    class Config:
+        orm_mode = True
+
+class PaginaTarefas(BaseModel):
+    tarefas: List[Tarefa]
+    total: int
 
     class Config:
         orm_mode = True

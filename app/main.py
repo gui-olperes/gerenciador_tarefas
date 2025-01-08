@@ -1,10 +1,10 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Query
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.security.api_key import APIKeyHeader
 from sqlalchemy.orm import Session
 from app.database import SessionLocal, engine
 from app.models import Base, Usuario
-from app.schemas import Tarefa, TarefaCreate, TarefaUpdate, UsuarioCreate, UsuarioResponse
+from app.schemas import Tarefa, TarefaCreate, TarefaUpdate, UsuarioCreate, UsuarioResponse, PaginaTarefas
 from app.crud import criar_tarefa, listar_tarefas, buscar_tarefa_por_id, atualizar_tarefa, deletar_tarefa
 from app.auth import criar_token_acesso, gerar_hash_senha, verificar_senha, verificar_token
 
@@ -63,9 +63,15 @@ def login_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
 def criar_nova_tarefa(tarefa: TarefaCreate, db: Session = Depends(get_db), usuario: str = Depends(obter_usuario_atual)):
     return criar_tarefa(db, tarefa)
 
-@app.get("/tarefas/", response_model=list[Tarefa])
-def listar_todas_as_tarefas(db: Session = Depends(get_db), usuario: str = Depends(obter_usuario_atual)):
-    return listar_tarefas(db)
+@app.get("/tarefas/", response_model=PaginaTarefas)
+def listar_todas_as_tarefas(
+    db: Session = Depends(get_db),
+    estado: str = Query(None, enum=["pendente", "em andamento", "concluída"], description="Filtra tarefas por estado"),
+    skip: int = Query(0, ge=0, description="Número de registros a pular (para paginação)"),
+    limit: int = Query(10, le=100, description="Número máximo de registros a retornar (para paginação)")
+):
+    tarefas, total = listar_tarefas(db, estado, skip, limit)
+    return PaginaTarefas(tarefas=tarefas, total=total)
 
 @app.get("/tarefas/{tarefa_id}", response_model=Tarefa)
 def visualizar_tarefa(tarefa_id: int, db: Session = Depends(get_db), usuario: str = Depends(obter_usuario_atual)):

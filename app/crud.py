@@ -9,8 +9,13 @@ def criar_tarefa(db: Session, tarefa: TarefaCreate):
     db.refresh(nova_tarefa)
     return nova_tarefa
 
-def listar_tarefas(db: Session):
-    return db.query(Tarefa).all()
+def listar_tarefas(db: Session, estado: str = None, skip: int = 0, limit: int = 10):
+    query = db.query(Tarefa)
+    if estado:
+        query = query.filter(Tarefa.estado == estado)
+    total = query.count()
+    tarefas = query.offset(skip).limit(limit).all()
+    return tarefas, total
 
 def buscar_tarefa_por_id(db: Session, tarefa_id: int):
     return db.query(Tarefa).filter(Tarefa.id == tarefa_id).first()
