@@ -2,6 +2,14 @@ from sqlalchemy import Column, Integer, String, DateTime
 from datetime import datetime
 from .database import Base
 
+
+class Usuario(Base):
+    __tablename__ = "usuarios"
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True, nullable=False)
+    senha = Column(String, nullable=False)
+
+    
 class Tarefa(Base):
     __tablename__ = "tarefas"
 

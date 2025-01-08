@@ -2,6 +2,18 @@ from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
 
+class UsuarioBase(BaseModel):
+    username: str
+
+class UsuarioCreate(UsuarioBase):
+    senha: str
+
+class UsuarioResponse(UsuarioBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+        
 class TarefaBase(BaseModel):
     titulo: str
     descricao: Optional[str] = None
