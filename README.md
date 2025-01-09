@@ -7,27 +7,24 @@ Antes de começar, certifique-se de ter os seguintes itens instalados em sua má
 - Docker
 - Docker Compose
 
-## Configuração do Projeto
+## Passo a Passo para Executar o Projeto
 
-### Estrutura do Projeto
-O projeto possui a seguinte estrutura básica:
+### Clonar o Repositório
 
-```
-/app
-├── pyproject.toml
-├── poetry.lock
-├── app/
-│   ├── main.py
-│   └── ...
-├── tests/
-│   ├── test_example.py
-│   └── ...
-├── Dockerfile
-├── docker-compose.yml
-└── README.md
-```
+1. Abra o terminal.
+2. Clone o repositório do projeto com o seguinte comando:
 
-## Como Executar a API
+   ```bash
+   git clone <URL_DO_REPOSITORIO>
+   ```
+
+3. Entre no diretório do projeto:
+
+   ```bash
+   cd <NOME_DO_DIRETORIO_CLONADO>
+   ```
+
+### Construir e Iniciar os Contêineres
 
 1. **Construir os Contêineres**
 
@@ -39,7 +36,7 @@ O projeto possui a seguinte estrutura básica:
 
 2. **Iniciar a API**
 
-   Após construir os contêineres, execute o comando abaixo para iniciar o serviço da API:
+   Execute o comando abaixo para iniciar o serviço da API:
 
    ```bash
    docker-compose up api
@@ -61,11 +58,11 @@ O projeto possui a seguinte estrutura básica:
    docker-compose down
    ```
 
-## Como Executar os Testes
+### Executar os Testes
 
-1. **Executar os Testes**
+1. **Rodar os Testes**
 
-   Para rodar os testes do projeto, utilize o seguinte comando:
+   Para executar os testes do projeto, utilize o seguinte comando:
 
    ```bash
    docker-compose run test
@@ -75,6 +72,25 @@ O projeto possui a seguinte estrutura básica:
 
    O resultado dos testes será exibido diretamente no terminal após a execução do comando.
 
+## Estrutura do Projeto
+
+O projeto possui a seguinte estrutura básica:
+
+```
+/app
+├── pyproject.toml
+├── poetry.lock
+├── app/
+│   ├── main.py
+│   └── ...
+├── tests/
+│   ├── test_example.py
+│   └── ...
+├── Dockerfile
+├── docker-compose.yml
+└── README.md
+```
+
 ## Variáveis de Ambiente
 
 No arquivo `docker-compose.yml`, a seguinte variável de ambiente está configurada:
@@ -82,4 +98,5 @@ No arquivo `docker-compose.yml`, a seguinte variável de ambiente está configur
 - `POETRY_VIRTUALENVS_CREATE=false`: Desativa a criação de ambientes virtuais pelo Poetry, permitindo que as dependências sejam instaladas diretamente no sistema do contêiner.
 
 Se necessário, você pode adicionar outras variáveis de ambiente na seção `environment` do `docker-compose.yml`.
+
 
