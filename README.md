@@ -44,10 +44,10 @@ Antes de começar, certifique-se de ter os seguintes itens instalados em sua má
 
 3. **Acessar a API**
 
-   A API estará disponível no seguinte endereço:
+   A documentação da API estará disponível no seguinte endereço:
 
    ```
-   http://localhost:8000
+   http://localhost:8000/docs
    ```
 
 4. **Parar a API**
