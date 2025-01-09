@@ -5,7 +5,6 @@
 Antes de começar, certifique-se de ter os seguintes itens instalados em sua máquina:
 
 - Docker
-- Docker Compose
 
 ## Passo a Passo para Executar o Projeto
 
@@ -91,12 +90,29 @@ O projeto possui a seguinte estrutura básica:
 └── README.md
 ```
 
-## Variáveis de Ambiente
+## Autenticação da API
 
-No arquivo `docker-compose.yml`, a seguinte variável de ambiente está configurada:
+Para utilizar os endpoints de tarefa, siga os passos abaixo para realizar a autenticação:
 
-- `POETRY_VIRTUALENVS_CREATE=false`: Desativa a criação de ambientes virtuais pelo Poetry, permitindo que as dependências sejam instaladas diretamente no sistema do contêiner.
+1. **Registrar um Usuário**
+   - Acesse o endpoint `/usuarios` para registrar um novo usuário.
 
-Se necessário, você pode adicionar outras variáveis de ambiente na seção `environment` do `docker-compose.yml`.
+2. **Realizar Login**
+   - Utilize o endpoint `/login` para autenticar o usuário registrado.
+   - O endpoint retornará um token.
+
+3. **Adicionar o Token à Requisição**
+   - **Via Interface `/docs`**:
+     - Clique no botão "Authorize" e insira o token no formato `Bearer token`.
+   - **Via Requisição Externa**:
+     - Inclua o token no cabeçalho da requisição com a seguinte estrutura:
+       ```json
+       {
+         "Authorization": "Bearer token"
+       }
+       ```
+
+Após realizar a autenticação, você terá acesso a todos os endpoints disponíveis na API.
+
 
 
