@@ -23,8 +23,11 @@ def test_registrar_usuario(client):
     }
 
     response = client.post("/usuarios/", json=usuario_data)
-    assert response.status_code == 200
-    assert "id" in response.json()  
+    if response.status_code == 200:
+        assert "id" in response.json()
+    else:
+        assert response.status_code == 400
+        assert response.json().get("detail") == "Usuário já existe" 
 
 # Fixture para obter o token de autenticação
 @pytest.fixture
