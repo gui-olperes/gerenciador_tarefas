@@ -6,7 +6,7 @@ from app.database import SessionLocal, Base
 from app.auth import criar_token_acesso
 import pytest
 
-user_test = "test_usuario"
+user_test = "test_usuario123"
 senha_test = "test_senha"
  
 
@@ -85,7 +85,6 @@ def test_listar_tarefas_com_estado(client, token):
         "estado": "pendente"
     }
     
-    # Cria a tarefa
     client.post(
         "/tarefas/", 
         json=tarefa_data, 
@@ -108,7 +107,6 @@ def test_editar_tarefas_com_estado(client, token):
         "estado": "em andamento"
     }
 
-    # Criação da tarefa
     response_criar = client.post(
         "/tarefas/", 
         json=tarefa_data_criar, 
@@ -124,7 +122,6 @@ def test_editar_tarefas_com_estado(client, token):
         "estado": "concluida"
     }
     
-    # Editando a tarefa
     response_editar = client.put(
         f"/tarefas/{tarefa_id}", 
         json=tarefa_data_editar,
@@ -133,7 +130,6 @@ def test_editar_tarefas_com_estado(client, token):
 
     assert response_editar.status_code == 200
 
-    # Recuperando a tarefa editada
     response_get = client.get(
         "/tarefas/?estado=concluida", 
         headers={"Authorization": f"Bearer {token}"}
@@ -151,7 +147,6 @@ def test_deletar_tarefas_com_estado(client, token):
         "estado": "em andamento"
     }
     
-    # Criação da tarefa
     response = client.post(
         "/tarefas/", 
         json=tarefa_data, 
@@ -161,7 +156,6 @@ def test_deletar_tarefas_com_estado(client, token):
     assert response.status_code == 200
     tarefa_id = response.json()["id"]
 
-    # Deletando a tarefa
     response_delete = client.delete(
         f"/tarefas/{tarefa_id}", 
         headers={"Authorization": f"Bearer {token}"}
@@ -169,7 +163,6 @@ def test_deletar_tarefas_com_estado(client, token):
     
     assert response_delete.status_code == 200
     
-    # Verificando se a tarefa foi realmente deletada
     response_get = client.get(
         f"/tarefas/{tarefa_id}", 
         headers={"Authorization": f"Bearer {token}"}
