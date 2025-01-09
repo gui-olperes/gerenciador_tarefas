@@ -71,25 +71,6 @@ Antes de começar, certifique-se de ter os seguintes itens instalados em sua má
 
    O resultado dos testes será exibido diretamente no terminal após a execução do comando.
 
-## Estrutura do Projeto
-
-O projeto possui a seguinte estrutura básica:
-
-```
-/app
-├── pyproject.toml
-├── poetry.lock
-├── app/
-│   ├── main.py
-│   └── ...
-├── tests/
-│   ├── test_example.py
-│   └── ...
-├── Dockerfile
-├── docker-compose.yml
-└── README.md
-```
-
 ## Autenticação da API
 
 Para utilizar os endpoints de tarefa, siga os passos abaixo para realizar a autenticação:
