@@ -15,7 +15,7 @@ Antes de começar, certifique-se de ter os seguintes itens instalados em sua má
 2. Clone o repositório do projeto com o seguinte comando:
 
    ```bash
-   git clone <URL_DO_REPOSITORIO>
+   git clone [<URL_DO_REPOSITORIO>](https://github.com/gui-olperes/gerenciador_tarefas.git)
    ```
 
 3. Entre no diretório do projeto:
