@@ -8,3 +8,9 @@ services:
       - .:/app
     environment:
       - POETRY_VIRTUALENVS_CREATE=false
+
+  test:
+    build: .
+    volumes:
+      - .:/app
+    command: ["poetry", "run", "pytest"]

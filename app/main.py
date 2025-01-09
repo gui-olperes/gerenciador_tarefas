@@ -66,6 +66,7 @@ def criar_nova_tarefa(tarefa: TarefaCreate, db: Session = Depends(get_db), usuar
 @app.get("/tarefas/", response_model=PaginaTarefas)
 def listar_todas_as_tarefas(
     db: Session = Depends(get_db),
+    usuario: str = Depends(obter_usuario_atual),
     estado: str = Query(None, enum=["pendente", "em andamento", "concluída"], description="Filtra tarefas por estado"),
     skip: int = Query(0, ge=0, description="Número de registros a pular (para paginação)"),
     limit: int = Query(10, le=100, description="Número máximo de registros a retornar (para paginação)")
